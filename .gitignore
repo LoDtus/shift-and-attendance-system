@@ -1,0 +1,79 @@
+# GLOBAL
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+*.swp
+*.swo
+*.bak
+*.orig
+*.pem
+*.class
+*.jar
+*.war
+*.ear
+*.iml
+.idea/
+.vscode/
+
+# Environment
+.env
+.env.*
+env.properties
+!**/.env.example
+!**/env.example.properties
+
+# Config Spring Boot
+application*.yml
+application*.properties
+
+# FRONTEND (Vite + React)
+frontend/node_modules/
+frontend/dist/
+frontend/dist-ssr/
+frontend/.vite/
+frontend/.next/
+frontend/out/
+frontend/.cache/
+frontend/.eslintcache
+frontend/*.tsbuildinfo
+frontend/coverage/
+frontend/.pnp*/
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/pnpm-debug.log*
+frontend/lerna-debug.log*
+frontend/.vercel/
+frontend/.env.local
+frontend/.env.*.local
+
+# BACKEND (Spring Boot + Maven)
+backend/target/
+backend/build/
+backend/.mvn/
+backend/.factorypath
+backend/.settings/
+backend/.project
+backend/.classpath
+backend/.springBeans
+backend/.sts4-cache
+backend/.apt_generated
+backend/*.ipr
+backend/*.iws
+backend/nbproject/
+backend/nbbuild/
+backend/nbdist/
+backend/dist/
+backend/.nb-gradle/
+
+# IDE-specific
+backend/.idea/
+backend/.vscode/
+backend/**/*.iml
+
+# EXCEPTIONS
+!**/src/main/**/target/
+!**/src/test/**/target/
+!**/src/main/**/build/
+!**/src/test/**/build/
