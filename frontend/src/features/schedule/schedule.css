@@ -1,0 +1,13 @@
+.relative-header {
+    position: relative;
+    height: 30px;
+}
+
+.hour-label {
+    position: absolute;
+    top: 0;
+    transform: translateX(-160%);
+    white-space: nowrap;
+    font-size: 10px;
+    background: white;
+}
