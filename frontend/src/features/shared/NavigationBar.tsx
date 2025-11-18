@@ -26,9 +26,9 @@ export default function NavigationBar() {
                 return (
                     <div key={tabIndex}>
                         <button
-                            className={`w-full py-2 px-5 mt-1 text-left font-semibold rounded-md
+                            className={`w-full py-2 px-5 mt-1 text-left text-dark-gray-text font-semibold rounded-md
                                 flex justify-between items-center
-                                ${isActive ? 'text-white bg-blue' : 'duration-200 hover:bg-gray-200 active:scale-95'}
+                                ${isActive ? 'text-white bg-blue' : 'duration-200 hover:text-black hover:bg-gray-200 active:scale-95'}
                             `}
                             onClick={() => navigateTo(tab?.path)}
                         >
@@ -43,14 +43,15 @@ export default function NavigationBar() {
                         </button>
 
                         {tab.subMenu && isActive && (
-                            <div className="ml-7 pl-2 flex flex-col border-l border-gray-line">
-                                {tab.subMenu.map((sub) => {
+                            <div className="mt-1 ml-3 pl-2 flex flex-col border-l border-gray-line">
+                                {tab.subMenu.map((sub, subIndex) => {
                                     const isSubActive = location.pathname === sub.path;
                                     return (
                                         <button
                                             key={sub.path}
-                                            className={`mt-1 py-1 px-5 text-left font-semibold rounded-md
-                                                ${isSubActive ? 'text-white bg-blue' : 'duration-200 hover:bg-gray-200'}
+                                            className={`py-1 px-5 text-left text-dark-gray-text font-semibold rounded-md
+                                                ${isSubActive ? 'text-white bg-blue' : 'duration-200 hover:text-black hover:bg-gray-200 active:scale-95'}
+                                                ${subIndex > 0 && 'mt-1'}
                                             `}
                                             onClick={() => navigateTo(sub.path)}
                                         >

@@ -1,52 +1,110 @@
-drop table if exists "user";
+create extension if not exists "pgcrypto";
 
-create table if not exists "user" (
-	id varchar(100) primary key,
-	employee_code varchar(100) default null,
-	work_email varchar(100) default null,
-	personal_email varchar(100) default null,
-	password varchar(100) default null,
-	active boolean default true
+drop table if exists "user";
+drop table if exists "gender";
+drop table if exists "profile_field_visiblity";
+drop table if exists "profile";
+
+create table if not exists "api_permission" (
+	"id" integer generated always as identity primary key,
+	"pattern" text not null,
+	"method" text not null,
+	"description" text default null,
+	"enabled" boolean not null default true
 );
 
-create table if not exists "gender" (
-	id varchar(100) primary key,
-	name varchar(100),
-	description varchar(100)
+create table if not exists "position" (
+	"id" uuid primary key default gen_random_uuid(),
+	"name" text not null,
+	"description" text default null,
+	"created_at" timestampz not null,
+	"updated_at" timestampz not null
 );
-drop table if exists "user";
+
+create table if not exists "role" (
+	"id" integer generated always as identity primary key,
+	"name" text not null,
+	"description" text not null,
+	"status" text not null,
+	"created_at" timestampz not null,
+	"updated_at" timestampz not null
+);
+
+create table if not exists "role_position" (
+	"role_id" uuid not null,
+	"position_id" uuid not null
+);
+
+create table if not exists "role_permission" (
+	"role_id" uuid not null,
+	"permission_id" uuid not null
+);
 
 create table if not exists "user" (
-	"id" varchar(100) primary key,
-	"employee_code" varchar(100) default null,
-	"work_email" varchar(100) default null,
-	"personal_email" varchar(100) default null,
-	"password" varchar(100) default null,
+	"id" uuid primary key default gen_random_uuid(),
+	"code" text default null,
+	"work_email" text default null,
+	"personal_email" text not null,
+	"password" varchar(100) not null,
 	"active" boolean default true
 );
 
 create table if not exists "gender" (
-	"id" varchar(100) primary key,
-	"name" varchar(100),
-	"description" varchar(100)
+	"id" integer generated always as identity primary key,
+	"name" text not null,
+	"description" text not null
+);
+
+create table if not exists "profile_field_visiblity" (
+	"user_id" uuid primary key default gen_random_uuid(),
+	"field" text not null,
+	"is_visible" boolean
 );
 
 create table if not exists "profile" (
-	"id" varchar(100) primary key,
-	"full_name" varchar(100),
-	"status" varchar(100),
-	"profile_img" varchar(100),
-	"date_of_birth" varchar(100),
-	"gender_id" varchar(100),
-	"phone_number" varchar(100),
-	"description" varchar(100),
-	"created_at" varchar(100),
-	"updated_at" varchar(100)
+	"id" uuid primary key,
+	"full_name" text not null,
+	"status" text not null,
+	"profile_img" text not null,
+	"date_of_birth" date default null,
+	"gender_id" integer not null,
+	"phone_number" text default null,
+	"description" text default null,
+	"employment_type_id",
+	"hire_date" date default null,
+	"employment_start_date" date default null,
+	"contract_end_date" date default null,
+	"probation_end_date" date default null,
+	"created_at" timestampz not null,
+	"updated_at" timestampz not null
 );
 
-insert into "user" values
-('u001', 'NV001', 'alice@company.com', 'alice@gmail.com', '123456', true),
-('u002', 'NV002', 'bob@company.com', 'bob@gmail.com', '123456', true)
-;
+create table if not exists "department" (
+	"id" uuid primary key default gen_random_uuid(),
+	"code" text default null,
+	"name" text not null,
+	"description" text default null,
+	"parent_id" uuid default null,
+	"created_at" timestampz not null,
+	"updated_at" timestampz not null
+);
 
-select * from "user";
+create table if not exists "user_department" (
+	"user_id" uuid not null,
+	"department_id" uuid not null
+);
+
+create table if not exists "user_role" (
+	"user_id" uuid not null,
+	"role_id" uuid not null
+);
+
+create table if not exists "user_position" (
+	"user_id" uuid not null,
+	"position_id" uuid not null
+);
+
+create table if not exists "position_department" (
+	"position_id" uuid not null,
+	"department_id" uuid not null
+);

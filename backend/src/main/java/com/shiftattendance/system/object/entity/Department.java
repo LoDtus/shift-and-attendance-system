@@ -17,4 +17,6 @@ import lombok.NoArgsConstructor;
 public class Department {
     @Id
     private String id;
+
+
 }

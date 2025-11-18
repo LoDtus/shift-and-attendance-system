@@ -8,7 +8,9 @@ export default function Header() {
 
     return (
         <div id="header" className="p-2 flex justify-between items-center border-b border-gray-line">
-            <h1 className="shrink-0 pb-1 font-semibold text-2xl">Demo Company</h1>
+            <h1 className="shrink-0 ml-2 pb-1 font-semibold text-2xl">
+                <a href="/">Demo Company</a>
+            </h1>
 
             <div className="h-full flex items-center">
                 <Input

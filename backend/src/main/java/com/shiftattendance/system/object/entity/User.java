@@ -1,10 +1,13 @@
 package com.shiftattendance.system.object.entity;
 
+import com.github.f4b6a3.uuid.UuidCreator;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.UUID;
 //import org.springframework.security.core.GrantedAuthority;
 //import org.springframework.security.core.userdetails.UserDetails;
 
@@ -17,7 +20,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "user")
 public class User {
     @Id
-    private String id;
+    private UUID id;
 
     @Column(name = "employee_code")
     private String employeeCode;
@@ -62,7 +65,7 @@ public class User {
     @PrePersist
     public void generateId() {
         if (this.id == null) {
-//            this.id = "user-" + UUID.randomUUID();
+            this.id = UuidCreator.getTimeOrderedEpoch();
         }
     }
 }

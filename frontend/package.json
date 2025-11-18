@@ -24,6 +24,7 @@
         "antd": "^5.28.1",
         "axios": "^1.13.2",
         "date-fns": "^4.1.0",
+        "feather-icons": "^4.29.2",
         "material-react-table": "^3.2.1",
         "react": "^19.2.0",
         "react-dom": "^19.2.0",
