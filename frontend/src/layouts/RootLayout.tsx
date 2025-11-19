@@ -6,9 +6,11 @@ export default function RootLayout() {
     return (
         <div className='w-full h-full flex flex-col'>
             <Header/>
-            <div className="grow w-full flex">
+            <div className="grow flex">
                 <NavigationBar/>
-                <Outlet/>
+                <div className="grow">
+                    <Outlet/>
+                </div>
             </div>
         </div>
     );

@@ -9,6 +9,7 @@ import {
 
 export const NAVIGATION_BAR_MENU = [
     { path: "/dashboard", icon: faChartSimple, label: "Dashboard" },
+    { path: "/article", icon: faChartSimple, label: "Article" },
     { path: "/schedule", icon: faClipboardList, label: "Schedule", subMenu: [
         { path: "/schedule/calendar", label: "Schedule Calendar" },
         { path: "/schedule/shift-management", label: "Shift Management" },

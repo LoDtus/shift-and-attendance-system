@@ -15,6 +15,8 @@ import ScheduleLayout from './features/schedule/ScheduleLayout'
 import AttendanceLayout from './features/attendance/AttendanceLayout'
 import PositionConfig from './features/config/PositionConfig'
 import RoleConfig from './features/config/RoleConfig'
+import ContractLayout from './features/contract/ContractLayout'
+import ArticleLayout from './features/article/ArticleLayout'
 
 export default function App() {
     return (
@@ -39,6 +41,8 @@ export default function App() {
                     <Route path="config/role" element={<RoleConfig/>}/>
                     <Route path="schedule" element={<ScheduleLayout/>}/>
                     <Route path="attendance" element={<AttendanceLayout/>}/>
+                    <Route path="contract" element={<ContractLayout/>}/>
+                    <Route path="article" element={<ArticleLayout/>}/>
                 </Route>
             </Routes>
         </div>

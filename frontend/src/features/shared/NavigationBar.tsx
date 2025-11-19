@@ -64,6 +64,8 @@ export default function NavigationBar() {
                     </div>
                 )
             })}
+
+            <button onClick={() => navigateTo("/auth/sign-in")}>Auth</button>
         </div>
     );
 };

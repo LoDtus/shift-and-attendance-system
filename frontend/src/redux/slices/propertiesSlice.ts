@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const propertiesSlice = createSlice({
+export default createSlice({
     name: 'properties',
     initialState: {
         widthNavBar: 0,
@@ -11,5 +11,3 @@ const propertiesSlice = createSlice({
         },
     }
 });
-
-export default propertiesSlice;
