@@ -7,5 +7,5 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/role")
-public class RoleControllerImpl {
+public class RoleControllerImpl implements RoleController {
 }

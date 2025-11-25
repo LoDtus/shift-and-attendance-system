@@ -8,27 +8,27 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("/api/user")
 public class UserControllerImpl implements UserController {
-    @PostMapping("/find")
+    @Override
     public ResponseEntity<?> find() {
         return null;
     }
 
-    @GetMapping("/other-user")
+    @Override
     public ResponseEntity<?> getOtherUser() {
         return null;
     }
 
-    @GetMapping("/me")
+    @Override
     public ResponseEntity<?> getMyProfile() {
         return null;
     }
 
-    @PutMapping("/update")
+    @Override
     public ResponseEntity<?> updateUser() {
         return null;
     }
 
-    @DeleteMapping("/delete")
+    @Override
     public ResponseEntity<?> deleteUsers() {
         return null;
     }

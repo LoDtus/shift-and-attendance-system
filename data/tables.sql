@@ -4,7 +4,7 @@ drop table if exists "profile_field_visiblity";
 drop table if exists "profile";
 
 create table if not exists "api_permission" (
-	"id" integer generated always as identity primary key,
+	"id" uuid primary key,
 	"pattern" text not null,
 	"method" text not null,
 	"description" text default null,
@@ -20,7 +20,7 @@ create table if not exists "position" (
 );
 
 create table if not exists "role" (
-	"id" integer generated always as identity primary key,
+	"id" uuid primary key,
 	"name" text not null,
 	"description" text not null,
 	"status" text not null,
@@ -30,12 +30,18 @@ create table if not exists "role" (
 
 create table if not exists "role_position" (
 	"role_id" uuid not null,
-	"position_id" uuid not null
+	"position_id" uuid not null,
+	primary key ("role_id", "position_id"),
+	foreign key ("role_id") references role("id"),
+	foreign key ("position_id") references position("id"),
 );
 
 create table if not exists "role_permission" (
 	"role_id" uuid not null,
-	"permission_id" uuid not null
+	"permission_id" uuid not nullm
+	primary key ("role_id", "permission_id"),
+	foreign key ("role_id") references role("id"),
+	foreign key ("permission_id") references api_permission("id"),
 );
 
 create table if not exists "user" (
@@ -53,21 +59,17 @@ create table if not exists "gender" (
 	"description" text not null
 );
 
-create table if not exists "profile_field_visiblity" (
-	"user_id" uuid primary key,
-	"field" text not null,
-	"is_visible" boolean
-);
-
 create table if not exists "employee_type" (
     "id" uuid primary key,
 	"code" varchar(50) unique not null,
     "name" varchar(100) not null,
+
     "is_full_time" boolean default false,
     "is_part_time" boolean default false,
     "is_contract" boolean default false,
     "is_intern" boolean default false,
     "is_freelancer" boolean default false,
+
     "is_hourly_paid" boolean default false,
     "is_benefit_eligible" boolean default false,
     "is_overtime_eligible" boolean default false,
@@ -75,7 +77,6 @@ create table if not exists "employee_type" (
     "description" text default null,
     "status" boolean default true
 );
-
 
 create table if not exists "profile" (
 	"id" uuid primary key,
@@ -92,7 +93,17 @@ create table if not exists "profile" (
 	"contract_end_date" date default null,
 	"probation_end_date" date default null,
 	"created_at" timestampz not null,
-	"updated_at" timestampz not null
+	"updated_at" timestampz not null,
+	foreign key ("id") references user("id"),
+	foreign key ("gender_id") references gender("id")
+);
+
+create table if not exists "profile_field_visiblity" (
+	"profile_id" uuid primary key,
+	"field" text not null,
+	"is_visible" boolean,
+	primary key ("profile_id", "field"),
+	foreign key ("profile_id") references profile("id")
 );
 
 create table if not exists "department" (
@@ -107,7 +118,10 @@ create table if not exists "department" (
 
 create table if not exists "user_department" (
 	"user_id" uuid not null,
-	"department_id" uuid not null
+	"department_id" uuid not null,
+	primary key ("user_id", "department_id"),
+	foreign key ("user_id") references profile("id"),
+	foreign key ("department_id") references department("id"),
 );
 
 create table if not exists "user_role" (
