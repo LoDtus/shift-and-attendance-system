@@ -1,5 +1,6 @@
 export default function NameCell() {
     return (
+        // Khônng dùng thẻ a, dùng Typography.Link
         <a
             className="flex flex-col
                 duration-200 hover:text-blue-500"

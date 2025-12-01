@@ -28,6 +28,7 @@ export default function AuthLayout() {
                     </Swiper>
                 </div>
             </div>
+
             <div className="w-1/3 h-full bg-white flex justify-center items-center">
                 <Outlet/>
             </div>
