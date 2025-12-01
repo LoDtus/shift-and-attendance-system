@@ -17,6 +17,7 @@ import PositionConfig from './features/config/PositionConfig'
 import RoleConfig from './features/config/RoleConfig'
 import ContractLayout from './features/contract/ContractLayout'
 import ArticleLayout from './features/article/ArticleLayout'
+import CustomEditor from './features/article/components/ckeditor/CustomEditor';
 
 export default function App() {
     return (
@@ -42,7 +43,11 @@ export default function App() {
                     <Route path="schedule" element={<ScheduleLayout/>}/>
                     <Route path="attendance" element={<AttendanceLayout/>}/>
                     <Route path="contract" element={<ContractLayout/>}/>
+
                     <Route path="article" element={<ArticleLayout/>}/>
+                    <Route path="article/new" element={<CustomEditor/>}/>
+                    <Route path="article/:id" element={<ArticleLayout/>}/>
+                    <Route path="article/:id/edit" element={<ArticleLayout/>}/>
                 </Route>
             </Routes>
         </div>

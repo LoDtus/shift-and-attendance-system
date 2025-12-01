@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Button, Checkbox, Input, Typography } from 'antd';
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 import { useNavigate } from "react-router-dom";
+import { notify } from "../../utils/notificationUtils";
 
 const { Text, Link } = Typography;
 
@@ -17,7 +18,7 @@ export default function SignIn() {
     const [passwordVisible, setPasswordVisible] = useState(false);
 
     const startSignIn = async () => {
-
+        notify('success', 'Dữ liệu đã được lưu thành công');
     }
 
     useEffect(() => {

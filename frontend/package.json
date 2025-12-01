@@ -12,7 +12,7 @@
     "dependencies": {
         "@ant-design/nextjs-registry": "^1.2.0",
         "@ant-design/v5-patch-for-react-19": "^1.0.3",
-        "@ckeditor/ckeditor5-react": "^11.0.0",
+        "@ckeditor/ckeditor5-react": "^9.3.1",
         "@fortawesome/fontawesome-svg-core": "^7.1.0",
         "@fortawesome/free-brands-svg-icons": "^7.1.0",
         "@fortawesome/free-regular-svg-icons": "^7.1.0",
@@ -24,7 +24,7 @@
         "@tailwindcss/vite": "^4.1.17",
         "antd": "^5.28.1",
         "axios": "^1.13.2",
-        "ckeditor5": "^47.2.0",
+        "ckeditor5": "^43.3.1",
         "date-fns": "^4.1.0",
         "i18next": "^25.6.3",
         "i18next-browser-languagedetector": "^8.2.0",

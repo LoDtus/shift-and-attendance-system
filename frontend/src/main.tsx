@@ -7,12 +7,15 @@ import { Provider } from 'react-redux'
 import '@ant-design/v5-patch-for-react-19'
 import store from './redux/store.ts'
 import './i18n'
+import { GlobalNotificationProvider } from './providers/NotificationProvider.tsx'
 
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
         <BrowserRouter>
             <Provider store={store}>
-                <App/>
+                <GlobalNotificationProvider>
+                    <App/>
+                </GlobalNotificationProvider>
             </Provider>
         </BrowserRouter>
     </StrictMode>,
