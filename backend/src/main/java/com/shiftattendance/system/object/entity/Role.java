@@ -1,22 +1,27 @@
 package com.shiftattendance.system.object.entity;
 
+import com.github.f4b6a3.uuid.UuidCreator;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.Instant;
+import java.util.UUID;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
-@Entity(name = "role")
+@Entity(name = "roles")
 public class Role {
     @Id
     @Column(name = "id")
-    private String id;
+    private UUID id;
 
     @Column(name = "name")
     private String name;
@@ -25,8 +30,8 @@ public class Role {
     private String description;
 
     @Column(name = "created_at")
-    private String createdAt;
+    private Instant createdAt;
 
     @Column(name = "updated_at")
-    private String updatedAt;
+    private Instant updatedAt;
 }

@@ -17,13 +17,13 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder(toBuilder = true)
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class User {
     @Id
     private UUID id;
 
-    @Column(name = "employee_code")
-    private String employeeCode;
+    @Column(name = "code")
+    private String code;
 
     @Column(name = "work_email")
     private String workEmail;
@@ -61,11 +61,4 @@ public class User {
 //    public boolean isEnabled() {
 //        return UserDetails.super.isEnabled();
 //    }
-
-    @PrePersist
-    public void generateId() {
-        if (this.id == null) {
-            this.id = UuidCreator.getTimeOrderedEpoch();
-        }
-    }
 }

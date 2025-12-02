@@ -14,7 +14,7 @@ import java.time.Instant;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
-@Entity(name = "article")
+@Entity(name = "articles")
 public class Article {
     @Id
     @Column(name = "id")

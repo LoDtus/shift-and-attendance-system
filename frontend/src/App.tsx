@@ -21,7 +21,7 @@ import CustomEditor from './features/article/components/ckeditor/CustomEditor';
 
 export default function App() {
     return (
-        <div className='w-screen h-screen'>
+        <div className='w-full h-full'>
             <Routes>
                 <Route path="/auth" element={<AuthLayout/>}>
                     <Route index element={<SignIn/>}/>

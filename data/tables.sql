@@ -1,51 +1,12 @@
-drop table if exists "user";
-drop table if exists "gender";
-drop table if exists "profile_field_visiblity";
-drop table if exists "profile";
+drop schema public cascade;
+create schema public;
 
-create table if not exists "api_permission" (
-	"id" uuid primary key,
-	"pattern" text not null,
-	"method" text not null,
-	"description" text default null,
-	"enabled" boolean not null default true
-);
+create extension if not exists pgcrypto;
 
-create table if not exists "position" (
-	"id" uuid primary key,
-	"name" text not null,
-	"description" text default null,
-	"created_at" timestampz not null,
-	"updated_at" timestampz not null
-);
+create type gender_type as enum ('MALE', 'FEMALE', 'OTHER', 'UNKNOWN');
 
-create table if not exists "role" (
-	"id" uuid primary key,
-	"name" text not null,
-	"description" text not null,
-	"status" text not null,
-	"created_at" timestampz not null,
-	"updated_at" timestampz not null
-);
-
-create table if not exists "role_position" (
-	"role_id" uuid not null,
-	"position_id" uuid not null,
-	primary key ("role_id", "position_id"),
-	foreign key ("role_id") references role("id"),
-	foreign key ("position_id") references position("id"),
-);
-
-create table if not exists "role_permission" (
-	"role_id" uuid not null,
-	"permission_id" uuid not nullm
-	primary key ("role_id", "permission_id"),
-	foreign key ("role_id") references role("id"),
-	foreign key ("permission_id") references api_permission("id"),
-);
-
-create table if not exists "user" (
-	"id" uuid primary key,
+create table if not exists "users" (
+	"id" uuid primary key default gen_random_uuid(),
 	"code" text default null,
 	"work_email" text default null,
 	"personal_email" text not null,
@@ -53,88 +14,139 @@ create table if not exists "user" (
 	"active" boolean default true
 );
 
-create table if not exists "gender" (
-	"id" integer generated always as identity primary key,
-	"name" text not null,
-	"description" text not null
-);
-
-create table if not exists "employee_type" (
-    "id" uuid primary key,
-	"code" varchar(50) unique not null,
-    "name" varchar(100) not null,
-
-    "is_full_time" boolean default false,
-    "is_part_time" boolean default false,
-    "is_contract" boolean default false,
-    "is_intern" boolean default false,
-    "is_freelancer" boolean default false,
-
-    "is_hourly_paid" boolean default false,
-    "is_benefit_eligible" boolean default false,
-    "is_overtime_eligible" boolean default false,
-    "is_probation_required" boolean default false,
-    "description" text default null,
-    "status" boolean default true
-);
-
-create table if not exists "profile" (
+create table if not exists "profiles" (
 	"id" uuid primary key,
 	"full_name" text not null,
 	"status" text not null,
-	"profile_img" text not null,
+	"profile_img" text default null,
 	"date_of_birth" date default null,
-	"gender_id" integer not null,
+	"gender" gender_type not null default 'UNKNOWN',
 	"phone_number" text default null,
 	"description" text default null,
-	"employment_type_id",
-	"hire_date" date default null,
-	"employment_start_date" date default null,
-	"contract_end_date" date default null,
-	"probation_end_date" date default null,
-	"created_at" timestampz not null,
-	"updated_at" timestampz not null,
-	foreign key ("id") references user("id"),
-	foreign key ("gender_id") references gender("id")
+	-- "employment_type_id" text default null,
+	-- "hire_date" date default null,
+	-- "employment_start_date" date default null,
+	-- "contract_end_date" date default null,
+	-- "probation_end_date" date default null,
+
+	"created_at" timestamptz not null default now(),
+	"updated_at" timestamptz not null default now(),
+	"deleted_at" timestamptz default null,
+	foreign key ("id") references "users"("id")
 );
 
-create table if not exists "profile_field_visiblity" (
-	"profile_id" uuid primary key,
-	"field" text not null,
-	"is_visible" boolean,
-	primary key ("profile_id", "field"),
-	foreign key ("profile_id") references profile("id")
+create table if not exists "roles" (
+	"id" uuid primary key default gen_random_uuid(),
+	"name" text not null,
+	"description" text not null,
+	"status" text not null,
+	"created_at" timestamptz not null default now(),
+	"updated_at" timestamptz not null default now(),
+	"deleted_at" timestamptz default null
 );
 
-create table if not exists "department" (
-	"id" uuid primary key,
+-- create table if not exists "employee_type" (
+--     "id" uuid primary key,
+-- 	"code" varchar(50) unique not null,
+--     "name" varchar(100) not null,
+
+--     "is_full_time" boolean default false,
+--     "is_part_time" boolean default false,
+--     "is_contract" boolean default false,
+--     "is_intern" boolean default false,
+--     "is_freelancer" boolean default false,
+
+--     "is_hourly_paid" boolean default false,
+--     "is_benefit_eligible" boolean default false,
+--     "is_overtime_eligible" boolean default false,
+--     "is_probation_required" boolean default false,
+--     "description" text default null,
+--     "status" boolean default true
+-- );
+
+create table if not exists "positions" (
+	"id" uuid primary key default gen_random_uuid(),
+	"code" text default null,
+	"name" text not null,
+	"description" text default null,
+	"created_at" timestamptz not null default now(),
+	"updated_at" timestamptz not null default now()
+);
+
+create table if not exists "departments" (
+	"id" uuid primary key default gen_random_uuid(),
 	"code" text default null,
 	"name" text not null,
 	"description" text default null,
 	"parent_id" uuid default null,
-	"created_at" timestampz not null,
-	"updated_at" timestampz not null
+	"created_at" timestamptz not null default now(),
+	"updated_at" timestamptz not null default now()
 );
 
-create table if not exists "user_department" (
+create table if not exists "users_roles" (
+	"user_id" uuid not null,
+	"role_id" uuid not null,
+	primary key ("user_id", "role_id"),
+	foreign key ("user_id") references "profiles"("id"),
+	foreign key ("role_id") references "roles"("id")
+);
+
+create table if not exists "users_positions" (
+	"user_id" uuid not null,
+	"position_id" uuid not null,
+	primary key ("user_id", "position_id"),
+	foreign key ("user_id") references "profiles"("id"),
+	foreign key ("position_id") references "positions"("id")
+);
+
+create table if not exists "users_departments" (
 	"user_id" uuid not null,
 	"department_id" uuid not null,
 	primary key ("user_id", "department_id"),
-	foreign key ("user_id") references profile("id"),
-	foreign key ("department_id") references department("id"),
+	foreign key ("user_id") references "profiles"("id"),
+	foreign key ("department_id") references "departments"("id")
 );
 
-create table if not exists "user_role" (
-	"user_id" uuid not null,
-	"role_id" uuid not null
-);
-
-create table if not exists "user_position" (
-	"user_id" uuid not null,
-	"position_id" uuid not null
-);
-
-create table if not exists "position_department" (
+create table if not exists "positions_departments" (
 	"position_id" uuid not null,
-	"department_id" uuid not null
+	"department_id" uuid not null,
+	primary key ("position_id", "department_id"),
+	foreign key ("position_id") references "positions"("id"),
+	foreign key ("department_id") references "departments"("id")
 );
+
+-- Hàm cập nhật updated_at
+create or replace function set_updated_at()
+returns trigger as $$
+begin
+    new.updated_at = now();
+    return new;
+end;
+$$ language plpgsql;
+
+-- Tự động tạo Trigger cho tất cả các bảng có updated_at
+do $$
+declare
+    tbl record;
+begin
+    for tbl in
+        select table_name
+        from information_schema.columns
+        where column_name = 'updated_at'
+        and table_schema = 'public'
+    loop
+        execute format('drop trigger if exists trg_update_%s on %I;', 
+            tbl.table_name, 
+            tbl.table_name
+        );
+        execute format(
+            'create trigger trg_update_%s
+            before update on %I
+            for each row
+            execute function set_updated_at();',
+            tbl.table_name,
+            tbl.table_name
+        );
+    end loop;
+end
+$$;

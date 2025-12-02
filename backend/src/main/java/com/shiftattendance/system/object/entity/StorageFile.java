@@ -2,10 +2,7 @@ package com.shiftattendance.system.object.entity;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.github.f4b6a3.uuid.UuidCreator;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.PrePersist;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,7 +15,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
-@Entity(name = "storage_file")
+@Entity(name = "storage_files")
 public class StorageFile {
     @Id
     @Column(name = "id")
@@ -53,11 +50,4 @@ public class StorageFile {
 
     @Column(name = "deleted_at")
     private Instant deletedAt;
-
-    @PrePersist
-    public void generateId() {
-        if (this.id == null) {
-            this.id = UuidCreator.getTimeOrderedEpoch();
-        }
-    }
 }

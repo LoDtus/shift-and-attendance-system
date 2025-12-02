@@ -21,7 +21,6 @@ export const notify = (
     placement: 'top' | 'topLeft' | 'topRight' | 'bottom' | 'bottomLeft' | 'bottomRight' = 'topRight'
 ) => {
     if (!notificationApi) {
-        console.warn('Notification API chưa được khởi tạo. Gọi <GlobalNotificationProvider /> ở cấp cao nhất.');
         return;
     }
 
@@ -32,13 +31,7 @@ export const notify = (
         message,
         description,
         placement,
-        duration: type === 'error' ? 5 : 3, // error hiển lâu hơn chút
+        duration: type === 'error' ? 5 : 3,
         showProgress: true,
     });
 };
-
-// Các hàm tiện ích (tùy chọn)
-export const success = (desc: string | React.ReactNode, placement?: any) => notify('success', desc, placement);
-export const error = (desc: string | React.ReactNode, placement?: any) => notify('error', desc, placement);
-export const info = (desc: string | React.ReactNode, placement?: any) => notify('info', desc, placement);
-export const warning = (desc: string | React.ReactNode, placement?: any) => notify('warning', desc, placement);

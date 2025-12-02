@@ -20,7 +20,10 @@ export default function NavigationBar() {
     };
 
     return (
-        <div id="navigationBar" className="h-full pt-1 pb-2 px-2 shrink-0 flex flex-col border-r border-gray-line">
+        <div
+            id="navigationBar"
+            className="h-full pt-1 pb-2 px-2 shrink-0 flex flex-col border-r border-gray-line"
+        >
             {NAVIGATION_BAR_MENU?.map((tab, tabIndex) => {
                 const isActive = location?.pathname?.startsWith(tab.path);
                 return (
@@ -32,7 +35,7 @@ export default function NavigationBar() {
                             `}
                             onClick={() => navigateTo(tab?.path)}
                         >
-                            <div>
+                            <div className="flex items-center">
                                 <FontAwesomeIcon className="mr-2" icon={tab?.icon}/>
                                 <span>{tab?.label}</span>
                             </div>
