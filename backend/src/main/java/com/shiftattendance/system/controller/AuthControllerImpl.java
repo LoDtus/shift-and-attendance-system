@@ -30,7 +30,7 @@ public class AuthControllerImpl implements AuthController {
     }
 
     @Override
-    @PostMapping("/sign-in")
+    @PostMapping("/sign-out")
     public ResponseEntity<?> signOut() {
         return null;
     }

@@ -11,6 +11,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.Instant;
+import java.util.UUID;
 
 @Data
 @NoArgsConstructor
@@ -20,7 +21,7 @@ import java.time.Instant;
 @Table(name = "profiles")
 public class Profile {
     @Id
-    private String id;
+    private UUID id;
 
     @Column(name = "full_name")
     private String fullName;
@@ -40,6 +41,9 @@ public class Profile {
     @Column(name = "phone_number")
     private String phoneNumber;
 
+    @Column(name = "address")
+    private String address;
+
     @Column(name = "description")
     private String description;
 
@@ -48,4 +52,7 @@ public class Profile {
 
     @Column(name = "updated_at")
     private Instant updatedAt;
+
+    @Column(name = "deleted_at")
+    private Instant deletedAt;
 }

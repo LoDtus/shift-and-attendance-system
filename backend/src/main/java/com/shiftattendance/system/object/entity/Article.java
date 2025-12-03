@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.Instant;
+import java.util.UUID;
 
 @Data
 @NoArgsConstructor
@@ -18,7 +19,7 @@ import java.time.Instant;
 public class Article {
     @Id
     @Column(name = "id")
-    private String id;
+    private UUID id;
 
     @Column(name = "uploaded_by")
     private String uploadedBy;
